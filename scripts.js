@@ -20,7 +20,7 @@ function getPopularMovies() {
         for (let i = 0; i < 4; i++) {
             html += `
                 <figure>
-                    <img src="${json.results[i].poster_path}" alt="">
+                    <img src="${imgUrl}${json.results[i].poster_path}" alt="">
                     <figcaption>${json.results[i].title}</figcaption>
                 </figure>            
             `
@@ -40,10 +40,6 @@ function getPopularMovies() {
 function getBirthYearMovies(e) {
 
 }
-
-
-
-
 
 
 
