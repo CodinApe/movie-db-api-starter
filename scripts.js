@@ -7,11 +7,9 @@ function getPopularMovies() {
     const data = null;
 
     const xhr = new XMLHttpRequest();
-    // xhr.withCredentials = true;
     
     xhr.addEventListener('readystatechange', function () {
       if (this.readyState === this.DONE) {
-        // console.log(this.responseText);
 
         let json = JSON.parse(this.responseText);
         console.log(json);
@@ -32,13 +30,50 @@ function getPopularMovies() {
     
     xhr.open('GET', url);
     xhr.setRequestHeader('accept', 'application/json');
-    // xhr.setRequestHeader('Authorization', 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4ZDNkZmVkNzExYTlkZGRkMGMxZTkyYjVjYjY4MmRiMiIsInN1YiI6IjY1YmMxN2Y5Y2ZmZWVkMDE2M2FkNTNhNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.l4WI5WCHr_q-xpG7NCjT3AeAr_n6vMMQ4LJRgV3oQrM');
     
     xhr.send(data);
 }
 
 function getBirthYearMovies(e) {
+    e.preventDefault();
+    let year = encodeURI(document.getElementById("userYear"));
 
+
+    let url = `https://api.themoviedb.org/3/discover/movie?api_key=8d3dfed711a9dddd0c1e92b5cb682db2&primary_release_year=${year}&sort_by=revenue.desc&language=en-US&page=1&include_adult=false`;
+
+    let birthMovies = document.getElementById("birthYear");
+    let imageUrl = "https://image.tmdb.org/t/p/w500/";
+
+
+
+    const data = null;
+
+    const xhr = new XMLHttpRequest();
+    
+    xhr.addEventListener('readystatechange', function () {
+      if (this.readyState === this.DONE) {
+
+        let json = JSON.parse(this.responseText);
+        console.log(json);
+
+        let html = "";
+        for (let i = 0; i < 4; i++) {
+            html += `
+                <figure>
+                    <img src="${imageUrl}${json.results[i].poster_path}" alt="">
+                    <figcaption>${json.results[i].title}</figcaption>
+                </figure>            
+            `
+        }
+
+        birthMovies.innerHTML = html;
+      }
+    });
+    
+    xhr.open('GET', url);
+    xhr.setRequestHeader('accept', 'application/json');
+   
+    xhr.send(data);
 }
 
 
